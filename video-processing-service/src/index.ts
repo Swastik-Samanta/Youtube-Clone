@@ -7,11 +7,6 @@ const app = express();
 app.use(express.json()); // allows use of JSON w/ REST APIs
 
 
-// Makes sure ffmpeg is installed locally and path is set
-const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-const ffmpeg = require('fluent-ffmpeg');
-ffmpeg.setFfmpegPath(ffmpegPath);
-
 
 app.post("/process-video",  async (req, res) => {
     // Get the bucket and filename from the Cloud Pub/Sub message

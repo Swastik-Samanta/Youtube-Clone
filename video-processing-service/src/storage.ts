@@ -3,7 +3,6 @@
 import { Storage } from "@google-cloud/storage";
 import fs from 'fs';
 import ffmpeg from "fluent-ffmpeg";
-import { rejects } from "assert";
 
 const storage = new Storage();
 
@@ -27,7 +26,7 @@ export function setupDirectories() {
 export function convertVideo(rawVideoName: string, processedVideoName: string) {
     return new Promise<void>((resolve, reject) => {
         ffmpeg(`${localRawVideoPath}/${rawVideoName}`)
-        .outputOptions('-vf', "scale=-1:360") // converting to 360p
+        .outputOptions("-vf", "scale=-1:360") // converting to 360p
         .on("end", () => {
             console.log("Processing finished successfully.");
             resolve();
@@ -46,7 +45,7 @@ export function convertVideo(rawVideoName: string, processedVideoName: string) {
  * @returns A promise that resolves when the file has been downloaded.
  */
 export async function downloadRawVideo(filename: string) {
-    storage.bucket(rawVideoBucketName)
+    await storage.bucket(rawVideoBucketName)
         .file(filename)
         .download({destination: `${localRawVideoPath}/${filename}`});
     
@@ -63,10 +62,13 @@ export async function downloadRawVideo(filename: string) {
 export async function uploadProcessedVideo(filename: string) {
     const bucket = storage.bucket(processedVideoBucketName);
 
-    bucket.upload(`${localProcessedVideoPath}/${filename}`, {
-        destination: filename
+    await storage.bucket(processedVideoBucketName)
+    .upload(`${localProcessedVideoPath}/${filename}`, {
+        destination: filename,
     });
-
+    console.log(
+        `${localProcessedVideoPath}/${filename} uploaded to gs://${processedVideoBucketName}/${filename}.`
+      );
     await bucket.file(filename).makePublic();
 }
 

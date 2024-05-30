@@ -7,6 +7,7 @@ import Link from "next/link";
 import SignIn from "./sign-in";
 import { onAuthStateChangedHelper} from "../Utilities/firebase/firebase";
 import { User } from "firebase/auth";
+import Upload from "./upload";
 
 export default function Navbar() {
     // init user state
@@ -31,7 +32,7 @@ export default function Navbar() {
                 </span>
             </Link>
             {
-                // TODO: Add a upload
+                user && <Upload />
             }
             <SignIn user={user}></SignIn>
         </nav>

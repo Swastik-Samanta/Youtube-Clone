@@ -6,5 +6,13 @@
 }
 
 .logoContainer {
+    display: flex;
+    align-items: center;
     cursor: pointer;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adjust the gap as needed */
 }

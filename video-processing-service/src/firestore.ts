@@ -23,9 +23,19 @@ export interface Video {
   status?: 'processing' | 'processed',
   title?: string,
   description?: string
+  likes?: number;
+  dislikes?: number;
+  views?: number;
+  comments?: Comment[];
 }
 
-async function getVideo(videoId: string) {
+export interface Comment {
+  id: string;
+  username: string;
+  text: string;
+}
+
+export async function getVideo(videoId: string) {
     const snapshot = await firestore.collection(videoCollectionId).doc(videoId).get();
     return (snapshot.data() as Video) ?? {};
 }

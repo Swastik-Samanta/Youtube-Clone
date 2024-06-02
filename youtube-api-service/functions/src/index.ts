@@ -20,6 +20,16 @@ export interface Video {
   status?: "processing" | "processed",
   title?: string,
   description?: string
+  likes?: number;
+  dislikes?: number;
+  views?: number;
+  comments?: Comment[];
+}
+
+export interface Comment {
+  id: string;
+  username: string;
+  text: string;
 }
 
 export const createUser = functions.auth.user().onCreate((user) => {
@@ -64,4 +74,36 @@ export const generateUploadUrl = onCall({maxInstances: 1}, async (request) => {
   export const getVideos = onCall({maxInstances: 1},  async () => {
     const snapshot = await firestore.collection(videoCollectionId).limit(10).get();
     return snapshot.docs.map((doc) => doc.data());
+  });
+
+  export const updateVideoLikes = async (videoId: string, newLikes: number) => {
+    const videoRef = firestore.collection(videoCollectionId).doc(videoId);
+    await videoRef.update({ likes: newLikes });
+  };
+  
+  export const updateVideoDislikes = async (videoId: string, newDislikes: number) => {
+    const videoRef = firestore.collection(videoCollectionId).doc(videoId);
+    await videoRef.update({ dislikes: newDislikes });
+  };
+
+  export const getVideoById = functions.https.onCall(async (data, context) => {
+    const { videoId } = data;
+  
+    if (!videoId) {
+      throw new functions.https.HttpsError('invalid-argument', 'The function must be called with a videoId.');
+    }
+  
+    try {
+      const videoRef = firestore.collection(videoCollectionId).doc(videoId);
+      const videoDoc = await videoRef.get();
+  
+      if (!videoDoc.exists) {
+        throw new functions.https.HttpsError('not-found', 'Video not found');
+      }
+  
+      const videoData = videoDoc.data();
+      return videoData;
+    } catch (error) {
+      throw new functions.https.HttpsError('unknown', 'Fetching failed');
+    }
   });

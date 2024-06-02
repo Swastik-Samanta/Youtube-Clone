@@ -13,6 +13,16 @@ export interface Video {
     status?: "processing" | "processed",
     title?: string,
     description?: string
+    likes?: number | 0;
+    dislikes?: number | 0;
+    views?: number | 0;
+    comments?: Comment[];
+}
+
+export interface Comment {
+  id: string;
+  username: string;
+  text: string;
 }
 
 

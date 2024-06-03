@@ -1,24 +1,20 @@
-"use client"
 import React, { useEffect, useState } from "react";
 import styles from "./WatchPage.module.css"
-import { useSearchParams } from "next/navigation";
-import { Video, getVideos, updateLikes } from "../Utilities/firebase/functions";
 
+import { Video, getVideoById, getVideos, updateLikes } from "../Utilities/firebase/functions";
+import Link from "next/link";
+import Image from "next/image";
 
-export default async function WatchPage() {
+export default async function WatchPage({videoId}: any) {
   const videoPrefix = 'https://storage.googleapis.com/swaz-yt-processed-videos/';
-  const videoSrc = useSearchParams().get('v');
-  const firstHalf = videoSrc?.split("-")[1]
-  const secondHalf = videoSrc?.split("-")[2].split(".")[0];
-  const videoId = firstHalf + "-" + secondHalf;
-  const videos = await getVideos();
-  const video = videos.find(vid => vid.id === videoId);
+  const video = await getVideoById(videoId);
+  
 
 
   return (
     <main>
           <div className={styles.videoWrapper}>
-              <video controls src={videoPrefix + videoSrc} className={styles.video}/>
+              <video controls src={videoPrefix + video.filename} className={styles.video}/>
           </div>
           <div className={styles.titleLikeDislikeContainer}>
             <h1 className={styles.videoTitle}>{video?.title}</h1>
@@ -27,6 +23,7 @@ export default async function WatchPage() {
             </div>
           </div>
           <Description video={video}/>
+          
     </main>
           
   );
@@ -40,6 +37,7 @@ export function LikeDislike({ video }: any) {
   const id: string = video.id;
   const handleLike = async () => {
     await updateLikes(id);
+    setLikes(likes + 1)
   };
 
   const handleDislike = () => {
@@ -72,6 +70,24 @@ export function Description({ video }: any) {
     <main className={styles.descriptionBox}>
       <h2 className={styles.descriptionHeading}>Description</h2>
       <p className={styles.description}>{video.description}</p>
+    </main>
+  );
+}
+
+export async function RelatedFeed() {
+  const videos = await getVideos();
+
+  return (
+    <main className={styles.relatedFeedContainer}>
+      {
+        videos.map((video) => (
+          <Link href={`watch?v=${video.filename}`}>
+            <Image src={`/thumbnail.png`} alt='video' width={120} height={80} className={styles.thumbnail}/>
+            <div>{video.title}</div>
+          </Link>
+        ))
+      }
+
     </main>
   );
 }

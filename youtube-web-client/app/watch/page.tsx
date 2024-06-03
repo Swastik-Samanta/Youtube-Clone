@@ -1,19 +1,23 @@
-import WatchPage from "./WatchPage";
+"use client"
+import WatchPage, { RelatedFeed } from "./WatchPage";
 import styles from "./WatchPage.module.css";
 import { Suspense } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { getVideos } from "../Utilities/firebase/functions";
+import { useSearchParams } from "next/navigation";
 
 
 
 export default function Page() {
+  const videoPrefix = 'https://storage.googleapis.com/swaz-yt-processed-videos/';
+  const videoSrc = useSearchParams().get('v');
+  const firstHalf = videoSrc?.split("-")[1]
+  const secondHalf = videoSrc?.split("-")[2].split(".")[0];
+  const videoId = firstHalf + "-" + secondHalf;
 
     return (
         <main className={styles.container}>
             <div className={styles.videoContainer}>
             <Suspense fallback={<div>Loading...</div>}>
-                <WatchPage/>
+                <WatchPage videoId={videoId}/>
             </Suspense>
             </div>
             <div className={styles.relatedFeedContainer}>
@@ -23,21 +27,3 @@ export default function Page() {
         
     );
 }
-
-export async function RelatedFeed() {
-    const videos = await getVideos();
-
-    return (
-      <main className={styles.relatedFeedContainer}>
-        {
-          videos.map((video) => (
-            <Link href={`watch?v=${video.filename}`}>
-              <Image src={`/thumbnail.png`} alt='video' width={120} height={80} className={styles.thumbnail}/>
-              <div>{video.title}</div>
-            </Link>
-          ))
-        }
-  
-      </main>
-    );
-  }

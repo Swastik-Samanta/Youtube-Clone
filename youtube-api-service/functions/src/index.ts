@@ -76,6 +76,11 @@ export const generateUploadUrl = onCall({maxInstances: 1}, async (request) => {
     return snapshot.docs.map((doc) => doc.data());
   });
 
+  export const getVideoById = functions.https.onCall(async (data, context) => {
+    const snapshot = firestore.collection(videoCollectionId).doc(JSON.parse(JSON.stringify(data)).videoId);
+    return (await snapshot.get()).data();
+  })
+
 
   export const updateVideoLikes = functions.https.onCall(async (data, context) => {
     logger.info(`Data passed in ${JSON.stringify(data)}`);

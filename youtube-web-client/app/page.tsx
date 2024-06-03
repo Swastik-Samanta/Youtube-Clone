@@ -11,11 +11,14 @@ export default async function Home() {
   console.log(videos);
 
   return (
-    <main>
+    <main className={styles.container}>
       {
         videos.map((video) => (
           <Link href={`watch?v=${video.filename}`}>
-            <Image src={`/thumbnail.png`} alt='video' width={120} height={80} className={styles.thumbnail}/>
+            <div className={styles.videoItem}>
+                <Image src={`/thumbnail.png`} alt='video' width={120} height={80} className={styles.thumbnail}/>
+              <div className={styles.title}>{video.title}</div>
+            </div>
           </Link>
         ))
       }

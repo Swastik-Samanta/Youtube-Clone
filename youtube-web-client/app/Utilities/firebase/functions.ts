@@ -4,6 +4,7 @@ import { functions } from "./firebase";
 
 const generateUploadUrl = httpsCallable(functions, 'generateUploadUrl');
 const getVideosFunction = httpsCallable(functions, `getVideos`);
+const updateLikesFunction = httpsCallable(functions, 'updateVideoLikes');
 
 
 export interface Video {
@@ -45,4 +46,9 @@ export async function uploadVideo(file: File) {
 export async function getVideos() {
     const response = await getVideosFunction();
     return response.data as Video[];
+}
+
+export async function updateLikes(videoId: string) {
+    const response = await updateLikesFunction({ videoId });
+    return response;
 }

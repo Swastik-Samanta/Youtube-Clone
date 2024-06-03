@@ -1,15 +1,32 @@
-"use client"
-import React from "react";
-import { useSearchParams } from "next/navigation";
-import { User } from "firebase/auth";
+import WatchPage from "./WatchPage";
+import styles from "./WatchPage.module.css";
+import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Video, getVideos } from "../Utilities/firebase/functions";
-import styles from "./page.module.css"
-import { onAuthStateChangedHelper } from "../Utilities/firebase/firebase";
+import { getVideos } from "../Utilities/firebase/functions";
 
-async function RelatedFeed() {
+
+
+export default function Page() {
+
+    return (
+        <main className={styles.container}>
+            <div className={styles.videoContainer}>
+            <Suspense fallback={<div>Loading...</div>}>
+                <WatchPage/>
+            </Suspense>
+            </div>
+            <div className={styles.relatedFeedContainer}>
+                <RelatedFeed/>
+            </div>
+        </main>
+        
+    );
+}
+
+export async function RelatedFeed() {
     const videos = await getVideos();
+
     return (
       <main className={styles.relatedFeedContainer}>
         {
@@ -24,50 +41,3 @@ async function RelatedFeed() {
       </main>
     );
   }
-
-export default function Watch() {
-    const videoPrefix = 'https://storage.googleapis.com/swaz-yt-processed-videos/';
-    const videoSrc = useSearchParams().get('v');
-    const videoId = useSearchParams().get('v')?.split("-")[1].split(".")[0];
-    
-    return (
-        <main className={styles.container}>
-
-            <div className={styles.videoWrapper}>
-                <video controls src={videoPrefix + videoSrc} className={styles.video}/>
-                    <LikeDislike videoId={videoId}/>
-
-                
-            </div>
-
-            <div className={styles.RelatedFeed}>
-                <RelatedFeed/>
-            </div>
-            
-
-        </main>
-        
-    );
-}
-
-async function LikeDislike(videoId: any) {
-    const videos = await getVideos();
-    
-    const selectedVideo = videos.find((vid) => vid.id === videoId);
-
-    return (
-      <main>
-        <div>
-          <button>Like</button>
-          {selectedVideo?.likes}
-          <button>Dislike</button>
-          {selectedVideo?.dislikes}
-        </div>
-      </main>
-    );
-}
-
-
-
-
-  

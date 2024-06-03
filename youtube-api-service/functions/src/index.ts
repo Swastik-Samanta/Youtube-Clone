@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import {initializeApp} from "firebase-admin/app";
-import {Firestore} from "firebase-admin/firestore";
+import {FieldValue, Firestore} from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
 import {Storage} from "@google-cloud/storage";
 import {onCall} from "firebase-functions/v2/https";
@@ -76,34 +76,11 @@ export const generateUploadUrl = onCall({maxInstances: 1}, async (request) => {
     return snapshot.docs.map((doc) => doc.data());
   });
 
-  export const updateVideoLikes = async (videoId: string, newLikes: number) => {
-    const videoRef = firestore.collection(videoCollectionId).doc(videoId);
-    await videoRef.update({ likes: newLikes });
-  };
-  
-  export const updateVideoDislikes = async (videoId: string, newDislikes: number) => {
-    const videoRef = firestore.collection(videoCollectionId).doc(videoId);
-    await videoRef.update({ dislikes: newDislikes });
-  };
 
-  export const getVideoById = functions.https.onCall(async (data, context) => {
-    const { videoId } = data;
-  
-    if (!videoId) {
-      throw new functions.https.HttpsError('invalid-argument', 'The function must be called with a videoId.');
-    }
-  
-    try {
-      const videoRef = firestore.collection(videoCollectionId).doc(videoId);
-      const videoDoc = await videoRef.get();
-  
-      if (!videoDoc.exists) {
-        throw new functions.https.HttpsError('not-found', 'Video not found');
-      }
-  
-      const videoData = videoDoc.data();
-      return videoData;
-    } catch (error) {
-      throw new functions.https.HttpsError('unknown', 'Fetching failed');
-    }
+  export const updateVideoLikes = functions.https.onCall(async (data, context) => {
+    logger.info(`Data passed in ${JSON.stringify(data)}`);
+    const videoRef = firestore.collection(videoCollectionId).doc(JSON.parse(JSON.stringify(data)).videoId);
+    const response = await videoRef.update({ likes: FieldValue.increment(1) });
+    return response;
   });
+  

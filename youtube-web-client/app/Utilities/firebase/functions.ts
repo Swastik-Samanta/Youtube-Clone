@@ -6,6 +6,8 @@ const generateUploadUrl = httpsCallable(functions, 'generateUploadUrl');
 const getVideosFunction = httpsCallable(functions, `getVideos`);
 const getVideoByIdFunction = httpsCallable(functions, 'getVideoById');
 const updateLikesFunction = httpsCallable(functions, 'updateVideoLikes');
+const updateDislikesFunction = httpsCallable(functions, 'updateVideoDislikes');
+const getUserByIdFunction = httpsCallable(functions, 'getUserById');
 
 
 export interface Video {
@@ -25,6 +27,13 @@ export interface Comment {
   id: string;
   username: string;
   text: string;
+}
+
+export interface User {
+    uid: string,
+    email: string,
+    photoUrl: string,
+    name: string
 }
 
 
@@ -57,4 +66,14 @@ export async function getVideoById(videoId: string) {
 export async function updateLikes(videoId: string) {
     const response = await updateLikesFunction({ videoId });
     return response;
+}
+
+export async function updateDisikes(videoId: string) {
+    const response = await updateDislikesFunction({ videoId });
+    return response;
+}
+
+export async function getUserById(uid: any) {
+    const response = await getUserByIdFunction({uid});
+    return response.data as User;
 }

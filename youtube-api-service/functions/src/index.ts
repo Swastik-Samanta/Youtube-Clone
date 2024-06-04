@@ -37,6 +37,7 @@ export const createUser = functions.auth.user().onCreate((user) => {
     uid: user.uid,
     email: user.email,
     photoUrl: user.photoURL,
+    name: user.displayName
   };
 
   firestore.collection("users").doc(user.uid).set(userInfo);
@@ -88,4 +89,16 @@ export const generateUploadUrl = onCall({maxInstances: 1}, async (request) => {
     const response = await videoRef.update({ likes: FieldValue.increment(1) });
     return response;
   });
+
+  export const updateVideoDislikes = functions.https.onCall(async (data, context) => {
+    logger.info(`Data passed in ${JSON.stringify(data)}`);
+    const videoRef = firestore.collection(videoCollectionId).doc(JSON.parse(JSON.stringify(data)).videoId);
+    const response = await videoRef.update({ dislikes: FieldValue.increment(1) });
+    return response;
+  });
   
+  export const getUserById = functions.https.onCall(async (data, context) => {
+    logger.info(`Data passed in ${JSON.stringify(data)}`);
+    const userRef = firestore.collection("users").doc(JSON.parse(JSON.stringify(data)).uid);
+    return (await userRef.get()).data();
+  })

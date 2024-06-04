@@ -23,5 +23,6 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "c:/Users/swast/OneDrive/Desktop/Youtube Clone/docker/workspace/Youtube-Clone/youtube-web-client/app/Utilities/firebase/firestore.ts"]
+  "exclude": ["node_modules", "c:/Users/swast/OneDrive/Desktop/Youtube Clone/docker/workspace/Youtube-Clone/youtube-web-client/app/Utilities/firebase/firestore.ts", 
+  "c:/Users/swast/OneDrive/Desktop/Youtube Clone/docker/workspace/Youtube-Clone/youtube-web-client/app/watch/main.tsx"]
 }

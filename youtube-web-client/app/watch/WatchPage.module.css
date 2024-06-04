@@ -44,7 +44,6 @@
     flex: 2; /* Allow title to take available space */
     display: flex;
     float: inline-start;
-    padding-left: 30px;
 }
 
 
@@ -102,4 +101,48 @@
 
 .thumbnail {
     margin: 10px 0;
+}
+
+
+.profileContainer {
+    display: inline-block;
+}
+  
+.profilePic {
+    width: 40px; /* Adjust width as needed */
+    height: 40px; /* Adjust height to maintain aspect ratio */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensure the image fills the container */
+}
+
+.profileWrapper {
+text-align: center; /* Center the content horizontally */
+}
+
+.userName {
+margin-top: 5px; /* Adjust the spacing between the image and the name */
+font-size: 12px; /* Adjust font size as needed */
+}
+
+
+
+.commentInput {
+    width: max-content;
+    box-sizing: border-box;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    resize: inherit;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px #0003;
+}
+.commentSession {
+
+}
+
+.postComment {
+    box-shadow: 0 2px 2px #0002;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
 }

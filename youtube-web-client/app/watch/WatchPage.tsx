@@ -1,14 +1,12 @@
 import styles from "./WatchPage.module.css"
-import { getCommentsById, getUserById, getVideoById } from "../Utilities/firebase/functions";
-import Image from "next/image";
+import { User, Video, getUserById, getVideoById } from "../Utilities/firebase/functions";
 import { LikeDislike } from "./LikeDislike";
-import Comments from "./Comments";
-import { Suspense } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default async function WatchPage({videoId}: any) {
   const videoPrefix = 'https://storage.googleapis.com/swaz-yt-processed-videos/';
   const video = await getVideoById(videoId);
-  const comments = await getCommentsById(videoId);
 
 
   return (
@@ -16,7 +14,7 @@ export default async function WatchPage({videoId}: any) {
           <div className={styles.videoWrapper}>
               <video controls src={videoPrefix + video.filename} className={styles.video}/>
           </div>
-          <h1 className={styles.videoTitle}>{video?.title}</h1>
+          <h1 className={styles.videoTitle}>{video.title}</h1>
           <div className={styles.titleLikeDislikeContainer}>
           <ProfilePic video={video}/>
             <div  className={styles.LikeDislikeContainer}>
@@ -42,13 +40,27 @@ export function Description({ video }: any) {
 }
 
 export async function ProfilePic( { video }: any) {
-  const user = await getUserById(video.uid);
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+        
+
+    const getUser = async () => {
+        const user = await getUserById(video.uid);;
+        setUser(user);
+    }
+    
+
+    getUser()
+
+  }, [video]);
   return (
     <main className={styles.profileContainer}>
+      <Link href={`channels?u=${user?.uid}`}>
       <div className={styles.profileWrapper}>
-          <img src={user.photoUrl} className={styles.profilePic} width={40} height={40}></img>
-          <div className={styles.userName}>{user.email.split("@")[0]}</div>
+            <img src={user?.photoUrl} className={styles.profilePic} width={40} height={40}></img>
+          <div className={styles.userName}>{user?.email.split("@")[0]}</div>
       </div>
+      </Link>
     </main>
   );
 }

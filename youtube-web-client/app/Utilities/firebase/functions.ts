@@ -36,7 +36,8 @@ export interface User {
     uid: string,
     email: string,
     photoUrl: string,
-    name: string
+    name: string,
+    description: string
 }
 
 

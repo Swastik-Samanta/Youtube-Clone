@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.bannerContainer {
+    position: relative;
+    width: 60%;
+    height: 225px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.banner {
+    border-radius: 20px;
+}
+
+.profileContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1170px;
+    margin-top: -60px; /* Adjust based on your preference */
+    padding: 20px;
+}
+
+.profilePicture {
+    width: 120px; /* Adjust size as needed */
+    height: 120px; /* Adjust size as needed */
+    border-radius: 50%;
+    border: 5px solid white; /* Optional: Add a white border for better visibility */
+    margin-right: 20px;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+
+.descriptionContainer {
+    bottom: -60px; /* Align with profile container */
+    right: 20px; /* Adjust based on your preference */
+    z-index: 1; /* Ensure description input appears above the banner */
+    background-color: white; /* Background color for the description section */
+    padding: 20px;
+    border-radius: 20px; /* Rounded corners for the description section */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for depth */
+}
+
+.descriptionInput {
+    width: 300px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    resize: none; /* Prevent resizing */
+}
+
+.profileAndDescription {
+    display: flex;
+    float: inline-start;
+    width: 100%;
+    max-width: 1170px;
+    padding: 20px;
+    border-radius: 20px;
+}

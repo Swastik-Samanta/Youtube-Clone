@@ -1,5 +1,4 @@
 import { getVideos } from "../Utilities/firebase/functions";
-import WatchPage from "./WatchPage";
 import styles from "./WatchPage.module.css"
 import Link from "next/link";
 import Image from "next/image";

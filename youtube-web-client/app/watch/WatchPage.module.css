@@ -126,23 +126,35 @@ font-size: 12px; /* Adjust font size as needed */
 
 
 
-.commentInput {
-    width: max-content;
-    box-sizing: border-box;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #333;
-    resize: inherit;
-    border-radius: 5px;
-    box-shadow: 0 2px 2px #0003;
-}
-.commentSession {
+.commentInputContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .commentInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
 
-}
 
 .postComment {
     box-shadow: 0 2px 2px #0002;
     padding: 20px;
     border-radius: 8px;
     margin-top: 20px;
+}
+
+.commentItem {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+  
+.replies {
+    margin-left: 20px;
 }

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
 import styles from "./WatchPage.module.css"
-import { getUserById, getVideoById, updateDisikes, updateLikes } from "../Utilities/firebase/functions";
+import { getCommentsById, getUserById, getVideoById } from "../Utilities/firebase/functions";
 import Image from "next/image";
 import { LikeDislike } from "./LikeDislike";
 import Comments from "./Comments";
+import { Suspense } from "react";
 
 export default async function WatchPage({videoId}: any) {
   const videoPrefix = 'https://storage.googleapis.com/swaz-yt-processed-videos/';
   const video = await getVideoById(videoId);
+  const comments = await getCommentsById(videoId);
 
 
   return (
@@ -23,7 +24,6 @@ export default async function WatchPage({videoId}: any) {
             </div>
           </div>
           <Description video={video}/>
-          <Comments video={video}/>
     </main>
           
   );

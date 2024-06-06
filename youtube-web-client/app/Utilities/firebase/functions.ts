@@ -8,6 +8,8 @@ const getVideoByIdFunction = httpsCallable(functions, 'getVideoById');
 const updateLikesFunction = httpsCallable(functions, 'updateVideoLikes');
 const updateDislikesFunction = httpsCallable(functions, 'updateVideoDislikes');
 const getUserByIdFunction = httpsCallable(functions, 'getUserById');
+const getCommentsByIdFunction = httpsCallable(functions, 'getCommentsById');
+const setCommentsByIdFunction = httpsCallable(functions, 'setCommentsById');
 
 
 export interface Video {
@@ -23,10 +25,11 @@ export interface Video {
     comments?: Comment[];
 }
 
-export interface Comment {
-  id: string;
-  username: string;
-  text: string;
+interface Comment {
+    text: string;
+    user: string;
+    comments: Array<Comment>
+    id: string;
 }
 
 export interface User {
@@ -76,4 +79,14 @@ export async function updateDisikes(videoId: string) {
 export async function getUserById(uid: any) {
     const response = await getUserByIdFunction({uid});
     return response.data as User;
+}
+
+export async function getCommentsById(id: any) {
+    const response = await getCommentsByIdFunction({id});
+    return response.data as Comment[]
+}
+
+export async function setCommentsById(id: any, commentData: any) {
+    const response = await setCommentsByIdFunction({id, commentData});
+    return response;
 }

@@ -102,3 +102,23 @@ export const generateUploadUrl = onCall({maxInstances: 1}, async (request) => {
     const userRef = firestore.collection("users").doc(JSON.parse(JSON.stringify(data)).uid);
     return (await userRef.get()).data();
   })
+
+  export const getCommentsById = functions.https.onCall(async (data, context) => {
+    logger.info(`Data passed in ${JSON.stringify(data)}`);
+    const commentRef = firestore.collection("comments").doc(JSON.parse(JSON.stringify(data)).id);
+    const response = (await commentRef.get()).data()?.comments;
+    logger.info(`Response: ${response}`);
+    return response;
+  })
+
+  export const setCommentsById = functions.https.onCall(async (data, context) => {
+    logger.info(`Data passed in ${JSON.stringify(data)}`);
+    logger.info(`Data passed in ${JSON.stringify(data)}`);
+    const {id, commentData} = data;
+    logger.info(`Comment ID: ${id}`);
+    logger.info(`Comment Data: ${JSON.stringify(commentData)}`);
+    const commentRef = firestore.collection("comments").doc(id);
+    const response = await commentRef.set({comments: FieldValue.arrayUnion(commentData)}, {merge: true});
+    logger.info(`Response: ${response}`);
+    return response
+  })

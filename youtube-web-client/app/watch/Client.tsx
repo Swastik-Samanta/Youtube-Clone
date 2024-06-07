@@ -1,9 +1,6 @@
 "use client"
 import styles from "./WatchPage.module.css";
 import React, { Suspense, useEffect, useState } from "react";
-import { getCommentsById, getVideoById, getVideos, updateDisikes, updateLikes } from "../Utilities/firebase/functions";
-import Link from "next/link";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import WatchPage from "./WatchPage";
 import Comments from "./Comments";

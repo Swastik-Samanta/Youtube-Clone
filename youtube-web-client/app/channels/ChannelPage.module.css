@@ -23,8 +23,7 @@
 
 .profileContainer {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    float: inline-start;
     width: 100%;
     max-width: 1170px;
     margin-top: -60px; /* Adjust based on your preference */
@@ -37,12 +36,14 @@
     border-radius: 50%;
     border: 5px solid white; /* Optional: Add a white border for better visibility */
     margin-right: 20px;
+    display: flex;
 }
 
 .username {
     font-size: 24px;
     font-weight: bold;
     margin-right: 20px;
+    margin-top: 30px;
 }
 
 
@@ -57,12 +58,13 @@
 }
 
 .descriptionInput {
-    width: 300px; /* Adjust size as needed */
+    width: 400px; /* Adjust size as needed */
     height: 100px; /* Adjust size as needed */
     border-radius: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     resize: none; /* Prevent resizing */
+    margin-top: 20px;
 }
 
 .profileAndDescription {
@@ -73,3 +75,46 @@
     padding: 20px;
     border-radius: 20px;
 }
+
+.saveButton {
+    position: relative;
+    top: 10px;
+  right: 10px;
+  padding: 10px;
+  background-color: transparent; /* No background color */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  border-radius: 5px;
+  margin-top: 12px;
+  }
+  
+  .saveButton svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .saveText {
+    margin-top: 5px;
+  }
+
+  .channelFeedContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .videoItem {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .thumbnail {
+    margin-bottom: 10px;
+  }
+  
+  .title {
+ 
+  }
+  

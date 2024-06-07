@@ -1,5 +1,5 @@
 import styles from "./WatchPage.module.css"
-import { User, Video, getUserById, getVideoById } from "../Utilities/firebase/functions";
+import { AppUser, Video, getUserById, getVideoById } from "../Utilities/firebase/functions";
 import { LikeDislike } from "./LikeDislike";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -39,8 +39,10 @@ export function Description({ video }: any) {
     );
 }
 
-export async function ProfilePic( { video }: any) {
-  const [user, setUser] = useState<User | null>(null);
+
+
+export function ProfilePic( { video }: any) {
+  const [user, setUser] = useState<AppUser | null>(null);
   useEffect(() => {
         
 

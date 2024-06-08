@@ -1,0 +1,60 @@
+.container {
+  position: relative; /* Establish a positioning context */
+  min-height: 100vh; /* Make sure the container takes up the full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Align items to the bottom */
+  padding-bottom: 20px; /* Add some space at the bottom */
+}
+
+.uploadInput {
+  display: none; /* Hide the file input */
+}
+
+.uploadButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF; /* Blue background color */
+  color: white; /* White text color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.uploadButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.uploadButton:active {
+  background-color: #004080; /* Even darker blue on active */
+}
+
+
+.inputGroup {
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.textInput, .textareaInput, .fileInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.textareaInput {
+  height: 100px;
+  resize: vertical;
+}

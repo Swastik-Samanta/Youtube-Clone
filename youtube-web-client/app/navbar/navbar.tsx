@@ -7,7 +7,7 @@ import Link from "next/link";
 import SignIn from "./sign-in";
 import { onAuthStateChangedHelper} from "../Utilities/firebase/firebase";
 import { User } from "firebase/auth";
-import Upload from "./upload";
+import UploadIcon from "./upload";
 
 export default function Navbar() {
     // init user state
@@ -32,7 +32,7 @@ export default function Navbar() {
                 </span>
             </Link>
             <div className={styles.buttonContainer}>
-                {user && <Upload />}
+                {user && <UploadIcon />}
                 <SignIn user={user} />
             </div>
         </nav>

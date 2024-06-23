@@ -3,6 +3,7 @@ import styles from "./WatchPage.module.css"
 import Link from "next/link";
 import Image from "next/image";
 import Page from "./Client";
+import { VideoComponent } from "../page";
 
 export default function app() {
     return (
@@ -20,13 +21,10 @@ export async function RelatedFeed() {
     const videos = await getVideos();
   
     return (
-      <main className={styles.relatedFeedContainer}>
+      <main className="flex flex-wrap flex-col gap-4">
         {
           videos.map((video) => (
-            <Link href={`watch?v=${video.filename}`}>
-              <Image src={`/thumbnail.png`} alt='video' width={120} height={80} className={styles.thumbnail}/>
-              <div>{video.title}</div>
-            </Link>
+            <VideoComponent video={video}/>
           ))
         }
   

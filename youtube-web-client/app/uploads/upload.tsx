@@ -44,7 +44,7 @@ export default function Upload() {
                     <input id="thumbnail" type="file" accept="image/*"  className={styles.fileInput} />
                 </div>
                 <div className={styles.inputGroup}>
-                    <Fragment >
+                    <Fragment>
                         <input id="upload" className={styles.uploadInput} type="file" accept="video/" 
                             onChange={handleFileChange}
                         />
